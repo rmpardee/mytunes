@@ -4,6 +4,8 @@ var SongQueueView = Backbone.View.extend({
   tagName: "table",
 
   initialize: function() {
+    // have the whole queue listen for add/remote, and if you hear it rerender
+    this.collection.on('add remove', this.render, this);
     this.render();
   },
 

@@ -2,7 +2,6 @@
 var AppModel = Backbone.Model.extend({
 
   initialize: function(params){
-    console.log(params);
     this.set('currentSong', new SongModel());
     this.set('songQueue', new SongQueue());
 
@@ -19,6 +18,17 @@ var AppModel = Backbone.Model.extend({
     params.library.on('play', function(song){
       this.set('currentSong', song);
     }, this);
-  }
 
+    // Creates a listener for 'enqueue' event on each Song instance in the Songs collection
+    // If it hears the 'enqueue' event, adds the song that triggered the event to the song queue
+    params.library.on('enqueue', function(song){
+      this.get('songQueue').add(song);
+    }, this);
+
+    // Creates a listener for 'stop' event on each Song instance in the Songs collection
+    // If it hears the 'stop' event, set the current song to null
+    this.get('songQueue').on('stop', function(){
+      this.set('currentSong', null);
+    }, this);
+  }
 });

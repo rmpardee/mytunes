@@ -21,7 +21,9 @@ var AppView = Backbone.View.extend({
     // this.$el = Backbone placeholder for templated content
     return this.$el.html([
       this.playerView.$el,
-      this.libraryView.$el
+      this.libraryView.$el,
+      // added the line below so we can see the queue
+      this.songQueueView.$el
     ]);
   }
 

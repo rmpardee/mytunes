@@ -1,17 +1,14 @@
 // SongModel.js - Defines a backbone model class for songs.
 var SongModel = Backbone.Model.extend({
+  // We need to pass along the keyword 'this' with each trigger event because 'this' is the context of the song that emits that event (it allows whatever hears the event to inherit the context of the song that caused it).
 
   play: function(){
-    // Triggering an event on an instance of a SongModel will also trigger that event on all collections that SongModel instance belongs to.
-    // Why do we need to pass along the keyword this when we trigger the 'play' event?
-    // this = context of song that emits the 'play' event
+    // Triggering an event on an instance of a SongModel will also trigger that event on all collections that SongModel instance belongs to. (??)
     this.trigger('play', this);
   },
 
   ended: function() {
-    // Adjust to account for song length (time) and user pausing?
     this.trigger('ended', this);
-    this.trigger('dequeue', this);
   },
 
   enqueue: function() {
